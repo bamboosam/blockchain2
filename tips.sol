@@ -8,5 +8,7 @@ contract tips{
         owner = msg.sender;
     }
 
+ function addtips() payable public {
 
+    }
 }
