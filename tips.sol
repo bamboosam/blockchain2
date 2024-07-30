@@ -11,4 +11,8 @@ contract tips{
  function addtips() payable public {
 
     }
+
+     function viewtips() public view returns(uint){
+        return address(this).balance;
+    }
 }
