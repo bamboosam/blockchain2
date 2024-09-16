@@ -26,7 +26,7 @@ contract tips{
     }
 
     //3.2 add waitress
-    function addWaitress(address payable walletAddress,string memory name) public{
+    function addWaitress(address payable walletAddress,string memory name,uint percent) public{
         bool waitressExist = false;
 
         if(waitress.length >=1){
@@ -38,7 +38,7 @@ contract tips{
 
         }
         if(waitressExist==false){
-            waitress.push(Waitress(walletAddress,name));
+            waitress.push(Waitress(walletAddress,name,percent));
         }
        
     }
@@ -70,8 +70,9 @@ contract tips{
     function distributeBalance() public {
         require(address(this).balance > 0, "Insufficient balance in the contract");
         if(waitress.length>=1){
-                    uint distributeAmount = address(this).balance / waitress.length;
+                    
                     for(uint j=0; j<waitress.length; j++){
+                        uint distributeAmount = address(this).balance * waitress[j].percent / 100;
                         _transferFunds(waitress[j].walletAddress, distributeAmount);
                     }
         }
